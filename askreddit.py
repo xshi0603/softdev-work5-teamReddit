@@ -25,11 +25,13 @@ ar.insert_many(posts2)
 file.close()
 
 x = ar.find({"data.link_flair_css_class": "serious"})
-for b in x:
-    print b
+for post in x:
+    print post
 
 y = ar.find({"data.author": "J-Bradley1"})
-for a in y:
-    print a
+for post in y:
+    print post
 
-
+c = ar.find( { "data.score": { "$gt": 50 } } )
+for post in c:
+    print post
