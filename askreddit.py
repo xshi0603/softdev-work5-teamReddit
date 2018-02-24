@@ -1,3 +1,10 @@
+'''
+dataset: AskReddit
+description: A list of posts on the subreddit /r/AskReddit. It includes information of each post such as its author, its url, its upvotes/downvotes, and much much more.
+download: https://www.reddit.com/r/AskReddit.json
+summary of import: We first read the .json file using open() and .read(). Then we turn the contents into a python dictionary using json.loads(). After this, we used created a list of the posts using jsoncont["data"]["children"] (there was additional information about the subreddit). The we used insert_many() to import it into the database.
+'''
+
 import pymongo
 import json
 
@@ -10,10 +17,19 @@ file = open(filename, "r")
 contents = file.read()
 
 jsoncont = json.loads(contents)
+print jsoncont
 posts2 = jsoncont["data"]["children"]
 
 ar.insert_many(posts2)
-'''
-for x in posts2:
-    print x
-'''
+
+file.close()
+
+x = ar.find({"data.link_flair_css_class": "serious"})
+for b in x:
+    print b
+
+y = ar.find({"data.author": "J-Bradley1"})
+for a in y:
+    print a
+
+
